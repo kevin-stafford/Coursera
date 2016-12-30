@@ -155,15 +155,40 @@
             "Yellow",
             "YellowGreen"
           ];
+      var guesses = 0;
       /**
-       * starts the game
+       * recursive gameplay begins...
        */
       function play() {
-        window.prompt("I am thinking of one of these colors:\n\n" +
-          colors.join(", ") + "\n\nWhat color am I thinking of?"
-        ) !== color
-        && play();
-        document.getElementsByTagName("body")[0].style.background = color;
+        var guess = window.prompt("I am thinking of one of these colors:\n\n" +
+                      colors.join(", ") + "\n\nWhat color am I thinking of?"
+                    );
+        // cancels the game
+        if (guess === null) return;
+
+        guesses++;
+        if (guess === color) {
+          document.getElementsByTagName("body")[0].style.background = color;
+          alert("Congratualations! You have guessed the color!\n\n" +
+                "It took you " + guesses + " guesses to finish the game!\n\n" +
+                "You can see the colour in the background."
+          );
+          return;
+        }
+        if (colors.indexOf(guess) < 0) {
+          alert("Sorry, I don't recognize your color.\n\n" +
+                "Please try again."
+          );
+          play();
+        } else {
+          alert("Sorry, your guess is not correct!\n\n" +
+                "Hint: your color is alphabetically "   +
+                (guess < color ? "lower " : "higher ")  +
+                "than mine.\n\n" +
+                "Please try again."
+          );
+          play();
+        }
       }
       /**
        * initializes the game
