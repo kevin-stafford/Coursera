@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>In Yo (Right) Face!</title>
+    <title>In Yo Fizace!</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -21,13 +21,25 @@
         position: absolute;
       }
     </style>
+  </head>
+  <body>
+    <div id="leftSide"></div>
+    <div id="rightSide"></div>
     <script>
       "use strict";
 
+      var numberOfFaces = 5,
+          theBody = document.getElementsByTagName("body")[0],
+          theLeftSide  = document.getElementById("leftSide"),
+          theRightSide = document.getElementById("rightSide");
+
+      function gameOver() {
+        window.alert("In Yo Face!\n\nGAME OVER!!!!!!!");
+        theBody.onclick = null;
+        theLeftSide.lastChild.onclick = null;
+      }
+
       function generateFaces() {
-        var leftSideBranch, numberOfFaces = 5,
-            theLeftSide  = document.getElementById("leftSide"),
-            theRightSide = document.getElementById("rightSide");
         // build leftSide branch
         for (var i = 0; i < numberOfFaces; i++) {
           var smiley = document.createElement("img");
@@ -41,14 +53,26 @@
           theLeftSide.appendChild(smiley);
         }
         // build rightSide branch
-        leftSideBranch = theLeftSide.cloneNode(true);
+        var leftSideBranch = theLeftSide.cloneNode(true);
         leftSideBranch.removeChild(leftSideBranch.lastChild);
         theRightSide.appendChild(leftSideBranch);
+
+        theLeftSide.lastChild.onclick = nextLevel;
       }
+
+      function nextLevel(event) {
+        event.stopPropagation();
+
+        while(theLeftSide.firstChild)
+          theLeftSide.removeChild(theLeftSide.firstChild);
+        theRightSide.removeChild(theRightSide.firstChild);
+
+        numberOfFaces += 5;
+        generateFaces();
+      }
+
+      theBody.onclick = gameOver;
+      generateFaces();
     </script>
-  </head>
-  <body onload="generateFaces();">
-    <div id="leftSide"></div>
-    <div id="rightSide"></div>
   </body>
 </html>
