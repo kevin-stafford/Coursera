@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Face Mania! Version 2.Oh</title>
+    <title>In Yo (Right) Face!</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -25,9 +25,10 @@
       "use strict";
 
       function generateFaces() {
-        var numberOfFaces = 5,
-            theLeftSide = document.getElementById("leftSide");
-
+        var leftSideBranch, numberOfFaces = 5,
+            theLeftSide  = document.getElementById("leftSide"),
+            theRightSide = document.getElementById("rightSide");
+        // build leftSide branch
         for (var i = 0; i < numberOfFaces; i++) {
           var smiley = document.createElement("img");
           smiley.src =
@@ -39,6 +40,10 @@
           );
           theLeftSide.appendChild(smiley);
         }
+        // build rightSide branch
+        leftSideBranch = theLeftSide.cloneNode(true);
+        leftSideBranch.removeChild(leftSideBranch.lastChild);
+        theRightSide.appendChild(leftSideBranch);
       }
     </script>
   </head>
