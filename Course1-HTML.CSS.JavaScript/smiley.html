@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Face Matching Mania!!!!!!!</title>
+    <title>Face Mania! Version 2.Oh</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -17,9 +17,32 @@
         left: 500px;
         border-left: 1px solid black;
       }
+      img {
+        position: absolute;
+      }
     </style>
+    <script>
+      "use strict";
+
+      function generateFaces() {
+        var numberOfFaces = 5,
+            theLeftSide = document.getElementById("leftSide");
+
+        for (var i = 0; i < numberOfFaces; i++) {
+          var smiley = document.createElement("img");
+          smiley.src =
+            "http://home.cse.ust.hk/~rossiter/mooc/matching_game/smile.png";
+          // for reasons unknown, smiley.style.top = value fails to position
+          smiley.setAttribute("style",
+            "top:"  + Math.floor(Math.random() * 400) + "px;" +
+            "left:" + Math.floor(Math.random() * 400) + "px;"
+          );
+          theLeftSide.appendChild(smiley);
+        }
+      }
+    </script>
   </head>
-  <body>
+  <body onload="generateFaces();">
     <div id="leftSide"></div>
     <div id="rightSide"></div>
   </body>
