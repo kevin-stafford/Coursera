@@ -110,7 +110,8 @@ angular.module("confusionApp", [])
       label: 'Hot',
       price: '4.99',
       description: 'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
-      comments: [{
+      comments: [
+        {
           rating: 5,
           comment: "Imagine all the eatables, living in conFusion!",
           author: "John Lemon",
@@ -143,5 +144,20 @@ angular.module("confusionApp", [])
       ]
     };
     $scope.sortBy = "-date";
+    $scope.dateISO = new Date().toISOString();
+
+    $scope.sendComments = function () {
+      console.log($scope.rating);
+      $scope.dish.comments.push(
+        {
+          rating: parseInt($scope.rating.stars),
+          comment: $scope.rating.comment,
+          author: $scope.rating.fullname,
+          date: new Date().toISOString()
+        }
+      );
+      $scope.ratingForm.$setPristine();
+      $scope.rating = { fullname: "", stars: "5", comment: "" };
+    };
   }])
 ;
