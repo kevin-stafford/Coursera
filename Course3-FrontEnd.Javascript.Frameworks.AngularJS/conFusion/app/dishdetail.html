@@ -8,11 +8,13 @@
       content must come *after* these tags -->
     <title>Ristorante Con Fusion: Menu</title>
     <!-- Bootstrap -->
+    <!-- build:css styles/main.css -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="styles/bootstrap-social.css" rel="stylesheet">
     <link href="styles/mystyles.css" rel="stylesheet">
+    <!-- endbuild -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -22,21 +24,21 @@
   </head>
   <body>
     <div class="container">
-      <div class="row row-content" ng-controller="dishDetailController as ddc">
+      <div class="row row-content" ng-controller="DishDetailController">
         <div class="col-xs-12">
           <div class="media">
             <div class="media-left media-middle">
               <a href="#">
               <img class="media-object img-thumbnail"
-                ng-src="{{ddc.dish.image}}">
+                ng-src="{{dish.image}}">
               </a>
             </div>
             <div class="media-body">
-              <h2 class="media-heading">{{ddc.dish.name}}
-                <span class="label label-danger">{{ddc.dish.label}}</span>
-                <span class="badge">{{ddc.dish.price | currency}}</span>
+              <h2 class="media-heading">{{dish.name}}
+                <span class="label label-danger">{{dish.label}}</span>
+                <span class="badge">{{dish.price | currency}}</span>
               </h2>
-              <p>{{ddc.dish.description}}</p>
+              <p>{{dish.description}}</p>
             </div>
           </div>
         </div>
@@ -46,8 +48,8 @@
             <small>Sort by: </small>
           </h4>
           &nbsp;&nbsp;&nbsp;
-          <input type="text" ng-model="ddc.sortBy">
-          <blockquote ng-repeat="comments in ddc.dish.comments | orderBy:ddc.sortBy">
+          <input type="text" ng-model="sortBy">
+          <blockquote ng-repeat="comments in dish.comments | orderBy:sortBy">
             <p>{{comments.rating}} Stars</p>
             <p>{{comments.comment}}</p>
             <footer>
@@ -57,53 +59,9 @@
         </div>
       </div>
     </div>
+    <!-- build:js scripts/main.js -->
     <script src="../bower_components/angular/angular.min.js"></script>
-    <script>
-      var app = angular.module('confusionApp', []);
-
-      app.controller('dishDetailController', function() {
-        var dish = {
-          name: 'Uthapizza',
-          image: 'images/uthapizza.png',
-          category: 'mains',
-          label: 'Hot',
-          price: '4.99',
-          description: 'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
-          comments: [{
-              rating: 5,
-              comment: "Imagine all the eatables, living in conFusion!",
-              author: "John Lemon",
-              date: "2012-10-16T17:57:28.556094Z"
-            },
-            {
-              rating: 4,
-              comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
-              author: "Paul McVites",
-              date: "2014-09-05T17:57:28.556094Z"
-            },
-            {
-              rating: 3,
-              comment: "Eat it, just eat it!",
-              author: "Michael Jaikishan",
-              date: "2015-02-13T17:57:28.556094Z"
-            },
-            {
-              rating: 4,
-              comment: "Ultimate, Reaching for the stars!",
-              author: "Ringo Starry",
-              date: "2013-12-02T17:57:28.556094Z"
-            },
-            {
-              rating: 2,
-              comment: "It's your birthday, we're gonna party!",
-              author: "25 Cent",
-              date: "2011-12-02T17:57:28.556094Z"
-            }
-          ]
-        };
-        this.dish = dish;
-        this.sortBy = "-date";
-      });
-    </script>
+    <script src="scripts/app.js"></script>
+    <!-- endbuild -->
   </body>
 </html>
