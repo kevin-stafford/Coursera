@@ -64,23 +64,25 @@ angular.module("confusionApp")
     };
   }])
 
-  .controller("DishDetailController", ["$scope", "menuFactory", function($scope, menuFactory) {
-    $scope.dish = menuFactory.getDish(2);
-    $scope.sortBy = "-date";
-    $scope.dateISO = new Date().toISOString();
+  .controller("DishDetailController", ["$scope", "$routeParams", "menuFactory",
+    function($scope, $routeParams, menuFactory) {
+      // $scope.dish = menuFactory.getDish(2);
+      $scope.dish = menuFactory.getDish(parseInt($routeParams.id, 10));
+      $scope.sortBy = "-date";
+      $scope.dateISO = new Date().toISOString();
 
-    $scope.sendComments = function () {
-      console.log($scope.rating);
-      $scope.dish.comments.push(
-        {
-          rating: parseInt($scope.rating.stars),
-          comment: $scope.rating.comment,
-          author: $scope.rating.fullname,
-          date: new Date().toISOString()
-        }
-      );
-      $scope.ratingForm.$setPristine();
-      $scope.rating = { fullname: "", stars: "5", comment: "" };
-    };
-  }])
+      $scope.sendComments = function () {
+        console.log($scope.rating);
+        $scope.dish.comments.push(
+          {
+            rating: parseInt($scope.rating.stars),
+            comment: $scope.rating.comment,
+            author: $scope.rating.fullname,
+            date: new Date().toISOString()
+          }
+        );
+        $scope.ratingForm.$setPristine();
+        $scope.rating = { fullname: "", stars: "5", comment: "" };
+      };
+    }])
 ;
