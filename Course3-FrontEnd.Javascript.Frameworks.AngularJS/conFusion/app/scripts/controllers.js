@@ -2,7 +2,11 @@
 
 angular.module("confusionApp")
   .controller("MenuController", ["$scope", "menuFactory", function($scope, menuFactory) {
-    $scope.dishes= menuFactory.getDishes();
+    $scope.dishes = menuFactory.getDishes().then(
+      function(response) {
+        $scope.dishes = response.data;
+      }
+    );
     $scope.tab = 1;
     $scope.filtText = "";
     $scope.showDetails = false;
@@ -66,7 +70,12 @@ angular.module("confusionApp")
 
   .controller("DishDetailController", ["$scope", "$stateParams", "menuFactory",
     function($scope, $stateParams, menuFactory) {
-      $scope.dish = menuFactory.getDish(parseInt($stateParams.id, 10));
+      $scope.dish = menuFactory.getDish(parseInt($stateParams.id, 10)).then(
+        function(response){
+          $scope.dish = response.data;
+          $scope.showDish = true;
+        }
+      );
       $scope.sortBy = "-date";
       $scope.dateISO = new Date().toISOString();
 
@@ -93,7 +102,12 @@ angular.module("confusionApp")
 
     .controller("IndexController", ["$scope", "menuFactory", "corporateFactory",
       function($scope, menuFactory, corporateFactory) {
-        $scope.dish = menuFactory.getDish(0);
+        $scope.dish = menuFactory.getDish(0).then(
+          function(response){
+            $scope.dish = response.data;
+            $scope.showDish = true;
+          }
+        );
         $scope.promo = menuFactory.getPromotion(0);
         $scope.leader = corporateFactory.getLeader(3);
       }
