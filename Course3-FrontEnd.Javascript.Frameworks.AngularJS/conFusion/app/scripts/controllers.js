@@ -66,7 +66,6 @@ angular.module("confusionApp")
 
   .controller("DishDetailController", ["$scope", "$stateParams", "menuFactory",
     function($scope, $stateParams, menuFactory) {
-      // $scope.dish = menuFactory.getDish(2);
       $scope.dish = menuFactory.getDish(parseInt($stateParams.id, 10));
       $scope.sortBy = "-date";
       $scope.dateISO = new Date().toISOString();
@@ -85,4 +84,18 @@ angular.module("confusionApp")
         $scope.rating = { fullname: "", stars: "5", comment: "" };
       };
     }])
+
+    .controller("AboutController", ["$scope", "corporateFactory",
+      function($scope, corporateFactory) {
+        $scope.leaders = corporateFactory.getLeaders();
+      }
+    ])
+
+    .controller("IndexController", ["$scope", "menuFactory", "corporateFactory",
+      function($scope, menuFactory, corporateFactory) {
+        $scope.dish = menuFactory.getDish(0);
+        $scope.promo = menuFactory.getPromotion(0);
+        $scope.leader = corporateFactory.getLeader(3);
+      }
+    ])
 ;

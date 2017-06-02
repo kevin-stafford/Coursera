@@ -24,7 +24,7 @@ angular.module("confusionApp", ["ui.router"])
         url: "aboutus",
         views: {
           "content@": {
-            templateUrl: "view/aboutus.html",
+            templateUrl: "views/aboutus.html",
             controller: "AboutController"
           }
         }
