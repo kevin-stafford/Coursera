@@ -77,7 +77,7 @@ angular.module("confusionApp")
 
   .controller("DishDetailController", ["$scope", "$stateParams", "menuFactory",
     function($scope, $stateParams, menuFactory) {
-      $scope.sortBy = "-date";
+      $scope.sortBy = "";
       $scope.dateISO = new Date().toISOString();
       $scope.dish = menuFactory.getDishes().get(
         {
