@@ -7,7 +7,7 @@ angular.module("confusionApp")
     $scope.showDetails = false;
     $scope.showMenu = false;
     $scope.message = "Loading...";
-    // $scope.dishes = menuFactory.getDishes().query();
+
     menuFactory.getDishes().query(
       function(response) {
         $scope.dishes = response;
@@ -79,7 +79,7 @@ angular.module("confusionApp")
     function($scope, $stateParams, menuFactory) {
       $scope.sortBy = "";
       $scope.dateISO = new Date().toISOString();
-      $scope.dish = menuFactory.getDishes().get(
+      menuFactory.getDishes().get(
         {
           id: parseInt($stateParams.id, 10)
         }
@@ -111,28 +111,61 @@ angular.module("confusionApp")
       };
     }])
 
-    .controller("AboutController", ["$scope", "corporateFactory",
-      function($scope, corporateFactory) {
-        $scope.leaders = corporateFactory.getLeaders();
-      }
-    ])
-
-    .controller("IndexController", ["$scope", "menuFactory", "corporateFactory",
-      function($scope, menuFactory, corporateFactory) {
-        $scope.dish = menuFactory.getDishes().get({ id: 0 }).$promise.then(
-          function(response){
-            $scope.dish = response;
-            $scope.showDish = true;
+    .controller("AboutController", ["$scope", "leadershipFactory",
+      function($scope, leadershipFactory) {
+        $scope.showLeaders = false;
+        $scope.indicator = "Loading ...";
+        $scope.leaders = leadershipFactory.getLeaders().query(
+          function(response) {
+            $scope.leaders = response;
+            $scope.showLeaders = true;
           },
           function(response) {
-            $scope.message = "Error: " + response.status + " " + response.statusText;
+            $scope.indicator = "Error: " + response.status + " " + response.statusText;
           }
         );
-        $scope.showDish = false;
-        $scope.message = "Loading...";
+    }])
 
-        $scope.promo = menuFactory.getPromotion(0);
-        $scope.leader = corporateFactory.getLeader(3);
-      }
-    ])
+    .controller("IndexController",
+      ["$scope", "menuFactory", "promoFactory", "leadershipFactory",
+        function($scope, menuFactory, promoFactory, leadershipFactory) {
+          // get menuItem
+          $scope.showDish = false;
+          $scope.message = "Loading...";
+          menuFactory.getDishes().get({ id: 0 }).$promise.then(
+            function(response){
+              $scope.dish = response;
+              $scope.showDish = true;
+            },
+            function(response) {
+              $scope.message = "Error: " + response.status + " " + response.statusText;
+            }
+          );
+          // get promotional
+          $scope.showPromo = false;
+          $scope.status = "Loading...";
+          promoFactory.getPromotions().get({ id: 0 }).$promise.then(
+            function(response){
+              $scope.promo = response;
+              $scope.showPromo = true;
+            },
+            function(response) {
+              $scope.status = "Error: " + response.status + " " + response.statusText;
+            }
+          );
+          // get leader bio
+          $scope.showLeader = false;
+          $scope.indicator = "Loading...";
+          leadershipFactory.getLeaders().get({ id: 3 }).$promise.then(
+            function(response){
+              $scope.leader = response;
+              $scope.showLeader = true;
+            },
+            function(response) {
+              $scope.indicator = "Error: " + response.status + " " + response.statusText;
+            }
+          );
+        }
+      ]
+    )
 ;
