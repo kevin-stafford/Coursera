@@ -215,5 +215,19 @@
       "description": "Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. He says, Put together the cuisines from the two craziest cultures, and you get a winning hit! Amma Mia!"
     }
   ],
-  "feedback": []
+  "feedback": [
+    {
+      "mychannel": "Email",
+      "firstName": "Tommy",
+      "lastName": "Boy",
+      "agree": true,
+      "email": "tommy@boy.com",
+      "tel": {
+        "areaCode": "321",
+        "number": "456-7896"
+      },
+      "comments": "Tommy likey. Tommy want wingy!",
+      "id": 1
+    }
+  ]
 }

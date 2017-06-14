@@ -31,4 +31,15 @@ angular.module("confusionApp")
       return leadershipFactory;
     }
   ])
+  .factory("feedbackFactory", ["$resource", "baseURL",
+    function($resource, baseURL) {
+  		var feedback = {};
+  		feedback.getFeedback = function(){
+  			return $resource(baseURL + "feedback/:id", null,
+          { "update": { method: "PUT" } }
+        );
+  		};
+  		return feedback;
+  	}
+  ])
 ;
