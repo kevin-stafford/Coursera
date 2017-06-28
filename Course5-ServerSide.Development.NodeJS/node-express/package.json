@@ -5,6 +5,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "morgan": "^1.8.2"
   }
