@@ -1,5 +1,5 @@
 {
-  "name": "node-express",
+  "name": "node-mongoose",
   "private": true,
   "engines": {
     "node": ">=0.10.0"
