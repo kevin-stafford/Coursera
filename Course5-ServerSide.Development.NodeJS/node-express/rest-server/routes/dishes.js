@@ -60,7 +60,6 @@ dishRouter.route("/:dishId")
       res.json(resp);
     });
   });
-// -----------------------------------------------------------------------------
 
 dishRouter.route("/:dishId/comments")
   .get(function(req, res, next) {
@@ -130,7 +129,5 @@ dishRouter.route("/:dishId/comments/:commentId")
       });
     });
   });
-// -----------------------------------------------------------------------------
-
 
 module.exports = dishRouter;
